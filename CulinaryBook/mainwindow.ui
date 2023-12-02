@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>778</width>
+    <height>719</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Поиск:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="searchLineEdit"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonFind">
+           <property name="text">
+            <string>Найти</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBox">
+      <item>
+       <property name="text">
+        <string>Все категории</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Закуски</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Салаты</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Супы</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Холодные блюда</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Горячие блюда</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Десерты</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Выпечка</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Напитки</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBox_2">
+      <item>
+       <property name="text">
+        <string>Все кухни</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Российская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Французская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Японская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Грузинская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Белорусская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Неопределенная кухня</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Результаты поиска</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableView" name="tableView1"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>Список рецептов</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTableView" name="tableView"/>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string/>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QPushButton" name="buttonEdit">
+         <property name="text">
+          <string>Редактировать блюдо</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonAdd">
+         <property name="text">
+          <string>Добавить блюдо</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="buttonDelete">
+         <property name="text">
+          <string>Удалить блюдо</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>778</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Приложение</string>
+    </property>
+    <addaction name="action"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action">
+   <property name="text">
+    <string>Выйти из приложения</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
