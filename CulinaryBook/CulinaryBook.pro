@@ -9,27 +9,27 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    addrecipewindow.cpp \
-    editrecipewindow.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    recipe.cpp \
-    recipedetailswindow.cpp \
-    recipemanager.cpp
+    Source/addrecipewindow.cpp \
+    Source/editrecipewindow.cpp \
+    Source/main.cpp \
+    Source/mainwindow.cpp \
+    Source/recipe.cpp \
+    Source/recipedetailswindow.cpp \
+    Source/recipemanager.cpp
 
 HEADERS += \
-    addrecipewindow.h \
-    editrecipewindow.h \
-    mainwindow.h \
-    recipe.h \
-    recipedetailswindow.h \
-    recipemanager.h
+   Headers/addrecipewindow.h \
+   Headers/editrecipewindow.h \
+   Headers/mainwindow.h \
+   Headers/recipe.h \
+   Headers/recipedetailswindow.h \
+   Headers/recipemanager.h
 
 FORMS += \
-    addrecipewindow.ui \
-    editrecipewindow.ui \
-    mainwindow.ui \
-    recipedetailswindow.ui
+    FORMS/addrecipewindow.ui \
+    FORMS/editrecipewindow.ui \
+    FORMS/mainwindow.ui \
+    FORMS/recipedetailswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
