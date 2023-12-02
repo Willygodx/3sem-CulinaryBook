@@ -1,12 +1,12 @@
-#include "editrecipewindow.h"
+#include "Headers/editrecipewindow.h"
 
 EditRecipeWindow::EditRecipeWindow(int recipeId, QWidget* parent)
     : QDialog(parent), recipeId(recipeId)
 {
     setWindowTitle("Редактировать рецепт");
 
-    QVBoxLayout* mainLayout = new QVBoxLayout(this);
-    QVBoxLayout* formLayout = new QVBoxLayout();
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    QVBoxLayout *formLayout = new QVBoxLayout();
 
     titleLabel = new QLabel("Редактировать данные о рецепте.");
     formLayout->addWidget(titleLabel);

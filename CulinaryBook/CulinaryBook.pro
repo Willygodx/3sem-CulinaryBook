@@ -15,7 +15,7 @@ SOURCES += \
     Source/mainwindow.cpp \
     Source/recipe.cpp \
     Source/recipedetailswindow.cpp \
-    Source/recipemanager.cpp
+    Source/recipemanager.cpp \
 
 HEADERS += \
    Headers/addrecipewindow.h \
@@ -23,7 +23,7 @@ HEADERS += \
    Headers/mainwindow.h \
    Headers/recipe.h \
    Headers/recipedetailswindow.h \
-   Headers/recipemanager.h
+   Headers/recipemanager.h \
 
 FORMS += \
     FORMS/addrecipewindow.ui \

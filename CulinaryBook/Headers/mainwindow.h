@@ -6,6 +6,7 @@
 #include <QSqlError>
 #include <QSqlTableModel>
 #include <QSqlQuery>
+#include <QModelIndex>
 #include "recipe.h"
 
 
@@ -43,6 +44,8 @@ private slots:
     void on_comboBox_currentIndexChanged();
 
     void on_comboBox_2_currentIndexChanged();
+
+    void updateRecipeView(const QString& category, const QString& kitchen);
 
 private:
     Ui::MainWindow *ui;

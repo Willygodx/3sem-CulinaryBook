@@ -1,8 +1,8 @@
-#include "mainwindow.h"
+#include "Headers/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "recipedetailswindow.h"
-#include "addrecipewindow.h"
-#include "editrecipewindow.h"
+#include "Headers/recipedetailswindow.h"
+#include "Headers/addrecipewindow.h"
+#include "Headers/editrecipewindow.h"
 #include <QSqlRecord>
 #include <QSqlField>
 
@@ -61,16 +61,13 @@ MainWindow::MainWindow(QWidget *parent)
     } else {
         ui->statusbar->showMessage("Error! Database not found!");
     }
-
 }
-
 
 MainWindow::~MainWindow()
 {
     db.close();
     delete ui;
 }
-
 
 void MainWindow::on_action_triggered()
 {
@@ -110,6 +107,7 @@ void MainWindow::on_buttonFind_clicked()
 {
     QString searchText = ui->searchLineEdit->text().trimmed();
     QString category = ui->comboBox->currentText();
+    QString kitchen = ui->comboBox_2->currentText();
     QString queryStr = "SELECT * FROM RecipesInfo WHERE ";
 
     if (!searchText.isEmpty()) {
@@ -119,8 +117,14 @@ void MainWindow::on_buttonFind_clicked()
     }
 
     if (category != "Все категории") {
-        queryStr += " AND ";
-        queryStr += "category = :category";
+        queryStr += " AND category = :category";
+    }
+
+    if (kitchen != "Все кухни") {
+        if (category != "Все категории") {
+            queryStr += " AND ";
+        }
+        queryStr += "kitchen = :kitchen";
     }
 
     QSqlQuery query;
@@ -132,6 +136,9 @@ void MainWindow::on_buttonFind_clicked()
     if (category != "Все категории") {
         query.bindValue(":category", category);
     }
+    if (kitchen != "Все кухни") {
+        query.bindValue(":kitchen", kitchen);
+    }
 
     if (query.exec()) {
         modelForSearch->setQuery(query);
@@ -139,7 +146,6 @@ void MainWindow::on_buttonFind_clicked()
     } else {
         qDebug() << "SQL Query Error:" << query.lastError().text();
     }
-
 }
 
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
@@ -150,7 +156,6 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
         RecipeDetailsWindow *detailsWindow = new RecipeDetailsWindow(recipe, this);
         detailsWindow->exec();
 }
-
 
 void MainWindow::on_tableView1_doubleClicked(const QModelIndex &index)
 {
@@ -185,6 +190,8 @@ void MainWindow::on_buttonAdd_clicked()
 {
     AddRecipeWindow *addingWindow = new AddRecipeWindow(this);
     addingWindow->exec();
+    model->select();
+    modelForSearch->select();
 }
 
 void MainWindow::on_tableView_clicked()
@@ -192,21 +199,38 @@ void MainWindow::on_tableView_clicked()
     ui->tableView1->selectionModel()->clear();
 }
 
-
 void MainWindow::on_tableView1_clicked()
 {
     ui->tableView->selectionModel()->clear();
 }
 
-
 void MainWindow::on_comboBox_currentIndexChanged()
 {
     QString category = ui->comboBox->currentText();
-    QString queryString;
-    if (category == "Все категории") {
+    QString kitchen = ui->comboBox_2->currentText();
+    updateRecipeView(category, kitchen);
+}
+
+
+void MainWindow::on_comboBox_2_currentIndexChanged()
+{
+    QString kitchen = ui->comboBox_2->currentText();
+    QString category = ui->comboBox->currentText();
+    updateRecipeView(category, kitchen);
+}
+
+void MainWindow::updateRecipeView(const QString& category, const QString& kitchen)
+{
+    QString queryString = "SELECT * FROM RecipesInfo WHERE ";
+
+    if (category == "Все категории" && kitchen == "Все кухни") {
         queryString = "SELECT * FROM RecipesInfo";
+    } else if (category == "Все категории") {
+        queryString += "kitchen = :kitchen";
+    } else if (kitchen == "Все кухни") {
+        queryString += "category = :category";
     } else {
-        queryString = "SELECT * FROM RecipesInfo WHERE category = :category";
+        queryString += "category = :category AND kitchen = :kitchen";
     }
 
     QSqlQuery query;
@@ -215,33 +239,6 @@ void MainWindow::on_comboBox_currentIndexChanged()
     if (category != "Все категории") {
         query.bindValue(":category", category);
     }
-
-    if (query.exec()) {
-        model->setQuery(query);
-        modelForSearch->setQuery(query);
-        modelForSearch->setFilter("1 = 0");
-        modelForSearch->select();
-        ui->tableView->setModel(model);
-        ui->tableView1->setModel(modelForSearch);
-    } else {
-        qDebug() << "SQL Query Error: " << query.lastError().text();
-    }
-}
-
-
-void MainWindow::on_comboBox_2_currentIndexChanged()
-{
-    QString kitchen = ui->comboBox_2->currentText();
-    QString queryString;
-    if (kitchen == "Все кухни") {
-        queryString = "SELECT * FROM RecipesInfo";
-    } else {
-        queryString = "SELECT * FROM RecipesInfo WHERE kitchen = :kitchen";
-    }
-
-    QSqlQuery query;
-    query.prepare(queryString);
-
     if (kitchen != "Все кухни") {
         query.bindValue(":kitchen", kitchen);
     }
@@ -257,4 +254,3 @@ void MainWindow::on_comboBox_2_currentIndexChanged()
         qDebug() << "SQL Query Error: " << query.lastError().text();
     }
 }
-

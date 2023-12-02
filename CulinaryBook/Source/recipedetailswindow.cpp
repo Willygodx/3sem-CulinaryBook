@@ -1,4 +1,4 @@
-#include "recipedetailswindow.h"
+#include "Headers/recipedetailswindow.h"
 #include "ui_recipedetailswindow.h"
 
 RecipeDetailsWindow::RecipeDetailsWindow(QWidget *parent) :
