@@ -121,10 +121,7 @@ void MainWindow::on_buttonFind_clicked()
     }
 
     if (kitchen != "Все кухни") {
-        if (category != "Все категории") {
-            queryStr += " AND ";
-        }
-        queryStr += "kitchen = :kitchen";
+        queryStr += " AND kitchen = :kitchen";
     }
 
     QSqlQuery query;

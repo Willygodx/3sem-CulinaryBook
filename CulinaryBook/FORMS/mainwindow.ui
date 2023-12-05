@@ -108,12 +108,7 @@
       </item>
       <item>
        <property name="text">
-        <string>Французская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Японская кухня</string>
+        <string>Индийская кухня</string>
        </property>
       </item>
       <item>
@@ -123,7 +118,42 @@
       </item>
       <item>
        <property name="text">
-        <string>Белорусская кухня</string>
+        <string>Японская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Французская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Американская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Тайская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Греческая кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Мексиканская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Средиземноморская кухня</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Восточная кухня</string>
        </property>
       </item>
       <item>
