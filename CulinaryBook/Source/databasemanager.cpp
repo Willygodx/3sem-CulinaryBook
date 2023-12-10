@@ -1,4 +1,4 @@
-#include "databasemanager.h"
+#include "Headers/databasemanager.h"
 
 DatabaseManager::DatabaseManager(const QString &databasePath) : databasePath(databasePath) {}
 

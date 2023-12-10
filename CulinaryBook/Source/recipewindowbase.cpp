@@ -1,4 +1,4 @@
-#include "recipewindowbase.h"
+#include "Headers/recipewindowbase.h"
 
 RecipeWindowBase::RecipeWindowBase(QWidget *parent)
     : QDialog(parent)
