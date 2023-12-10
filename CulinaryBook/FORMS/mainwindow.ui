@@ -46,122 +46,10 @@
      </widget>
     </item>
     <item>
-     <widget class="QComboBox" name="comboBox">
-      <item>
-       <property name="text">
-        <string>Все категории</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Закуски</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Салаты</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Супы</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Холодные блюда</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Горячие блюда</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Десерты</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Выпечка</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Напитки</string>
-       </property>
-      </item>
-     </widget>
+     <widget class="QComboBox" name="comboBox"/>
     </item>
     <item>
-     <widget class="QComboBox" name="comboBox_2">
-      <item>
-       <property name="text">
-        <string>Все кухни</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Российская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Индийская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Грузинская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Японская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Французская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Американская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Тайская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Греческая кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Мексиканская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Средиземноморская кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Восточная кухня</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Неопределенная кухня</string>
-       </property>
-      </item>
-     </widget>
+     <widget class="QComboBox" name="comboBox_2"/>
     </item>
     <item>
      <widget class="QLabel" name="label_2">
@@ -230,12 +118,48 @@
     </property>
     <addaction name="action"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Категории</string>
+    </property>
+    <addaction name="actionAddCategory"/>
+    <addaction name="actionDeleteCategory"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Кухни</string>
+    </property>
+    <addaction name="actionAddKitchen"/>
+    <addaction name="actionDeleteKitchen"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="action">
    <property name="text">
     <string>Выйти из приложения</string>
+   </property>
+  </action>
+  <action name="actionAddCategory">
+   <property name="text">
+    <string>Добавить категорию</string>
+   </property>
+  </action>
+  <action name="actionDeleteCategory">
+   <property name="text">
+    <string>Удалить категорию</string>
+   </property>
+  </action>
+  <action name="actionAddKitchen">
+   <property name="text">
+    <string>Добавить кухню</string>
+   </property>
+  </action>
+  <action name="actionDeleteKitchen">
+   <property name="text">
+    <string>Удалить кухню</string>
    </property>
   </action>
  </widget>

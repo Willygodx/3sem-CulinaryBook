@@ -16,6 +16,9 @@ SOURCES += \
     Source/recipe.cpp \
     Source/recipedetailswindow.cpp \
     Source/recipemanager.cpp \
+    Source/comboboxloader.cpp \
+    Source/databasemanager.cpp \
+    Source/recipewindowbase.cpp
 
 HEADERS += \
    Headers/addrecipewindow.h \
@@ -24,6 +27,9 @@ HEADERS += \
    Headers/recipe.h \
    Headers/recipedetailswindow.h \
    Headers/recipemanager.h \
+   Headers/comboboxloader.h \
+   Headers/databasemanager.h \
+   Headers/recipewindowbase.h
 
 FORMS += \
     FORMS/addrecipewindow.ui \

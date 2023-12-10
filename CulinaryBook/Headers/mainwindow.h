@@ -2,13 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlTableModel>
-#include <QSqlQuery>
-#include <QModelIndex>
-#include "recipe.h"
-
+#include "recipemanager.h"
+#include "databasemanager.h"
+#include "Headers/recipedetailswindow.h"
+#include "Headers/addrecipewindow.h"
+#include "Headers/editrecipewindow.h"
+#include <QInputDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -47,6 +46,14 @@ private slots:
 
     void updateRecipeView(const QString& category, const QString& kitchen);
 
+    void on_actionAddCategory_triggered();
+
+    void on_actionDeleteCategory_triggered();
+
+    void on_actionAddKitchen_triggered();
+
+    void on_actionDeleteKitchen_triggered();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
@@ -54,6 +61,10 @@ private:
     QSqlTableModel *modelForSearch;
     QSqlTableModel *modelForDelete;
     int currentRow;
+    DatabaseManager *dbManager;
+    ComboBoxLoader *comboBoxLoader;
+    const QString categoryPath = "/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/comboBoxCategoryInfo.txt";
+    const QString kitchenPath = "/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/comboBoxKitchenInfo.txt";
 
 protected:
     bool isRecipeEdited;

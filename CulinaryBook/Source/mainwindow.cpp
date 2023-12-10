@@ -1,10 +1,5 @@
 #include "Headers/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "Headers/recipedetailswindow.h"
-#include "Headers/addrecipewindow.h"
-#include "Headers/editrecipewindow.h"
-#include <QSqlRecord>
-#include <QSqlField>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,16 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     setWindowTitle("Кулинарный справочник");
 
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/RecipeNames.db");
-    if (db.open()) {
-
-        model = new QSqlTableModel(this, db);
-        model->setTable("RecipesInfo");
-        model->select();
-        model->setHeaderData(1, Qt::Horizontal, "Название рецепта", Qt::DisplayRole);
-        model->setHeaderData(2, Qt::Horizontal, "Краткое описание", Qt::DisplayRole);
-        model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    dbManager = new DatabaseManager("/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/RecipeNames.db");
+    if (dbManager->openDatabase()) {
+        model = dbManager->createRecipeModel();
 
         ui->tableView->setModel(model);
         ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -38,13 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
         ui->tableView->setSortingEnabled(true);
         ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-        modelForSearch = new QSqlTableModel(this, db);
-        modelForSearch->setTable("RecipesInfo");
-        modelForSearch->setFilter("1 = 0");
-        modelForSearch->select();
-        modelForSearch->setHeaderData(1, Qt::Horizontal, "Название рецепта", Qt::DisplayRole);
-        modelForSearch->setHeaderData(2, Qt::Horizontal, "Краткое описание", Qt::DisplayRole);
-        modelForSearch->setEditStrategy(QSqlTableModel::OnManualSubmit);
+        modelForSearch = dbManager->createRecipeModelForSearch();
 
         ui->tableView1->setModel(modelForSearch);
         ui->tableView1->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -61,11 +43,13 @@ MainWindow::MainWindow(QWidget *parent)
     } else {
         ui->statusbar->showMessage("Error! Database not found!");
     }
+    comboBoxLoader->loadComboBoxItems(ui->comboBox, categoryPath);
+    comboBoxLoader->loadComboBoxItems(ui->comboBox_2, kitchenPath);
 }
 
 MainWindow::~MainWindow()
 {
-    db.close();
+    dbManager->closeDatabase();
     delete ui;
 }
 
@@ -251,3 +235,72 @@ void MainWindow::updateRecipeView(const QString& category, const QString& kitche
         qDebug() << "SQL Query Error: " << query.lastError().text();
     }
 }
+
+
+void MainWindow::on_actionAddCategory_triggered()
+{
+    bool ok;
+    QString newItem = QInputDialog::getText(this, tr("Добавление"), tr("Введите новую категорию:"), QLineEdit::Normal, "", &ok);
+    if (ok && !newItem.isEmpty())
+    {
+        ui->comboBox->addItem(newItem);
+        comboBoxLoader->saveComboBoxItems(ui->comboBox, categoryPath);
+    }
+}
+
+void MainWindow::on_actionDeleteCategory_triggered()
+{
+    int currentIndex = ui->comboBox->currentIndex();
+    if (currentIndex != -1)
+    {
+        QString currentItemText = ui->comboBox->itemText(currentIndex);
+        if (currentItemText != "Все категории")
+        {
+            ui->comboBox->removeItem(currentIndex);
+            comboBoxLoader->saveComboBoxItems(ui->comboBox, categoryPath);
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Предупреждение"), tr("Нельзя удалить выбранную категорию."), QMessageBox::Ok);
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Предупреждение"), tr("Выберите категорию для удаления."), QMessageBox::Ok);
+    }
+}
+
+void MainWindow::on_actionAddKitchen_triggered()
+{
+    bool ok;
+    QString newItem = QInputDialog::getText(this, tr("Добавление"), tr("Введите новую кухню:"), QLineEdit::Normal, "", &ok);
+    if (ok && !newItem.isEmpty())
+    {
+        ui->comboBox_2->addItem(newItem);
+        comboBoxLoader->saveComboBoxItems(ui->comboBox_2, kitchenPath);
+    }
+}
+
+
+void MainWindow::on_actionDeleteKitchen_triggered()
+{
+    int currentIndex = ui->comboBox_2->currentIndex();
+    if (currentIndex != -1)
+    {
+        QString currentItemText = ui->comboBox_2->itemText(currentIndex);
+        if (currentItemText != "Все кухни" || currentItemText != "Неопределенная кухня")
+        {
+            ui->comboBox_2->removeItem(currentIndex);
+            comboBoxLoader->saveComboBoxItems(ui->comboBox_2, kitchenPath);
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Предупреждение"), tr("Нельзя удалить выбранную кухню."), QMessageBox::Ok);
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, tr("Предупреждение"), tr("Выберите кухню для удаления."), QMessageBox::Ok);
+    }
+}
+

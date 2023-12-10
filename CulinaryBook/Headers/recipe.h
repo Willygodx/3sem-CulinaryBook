@@ -1,6 +1,6 @@
 #ifndef RECIPE_H
 #define RECIPE_H
-#include <QSqlQuery>
+#include <QString>
 
 class Recipe
 {
