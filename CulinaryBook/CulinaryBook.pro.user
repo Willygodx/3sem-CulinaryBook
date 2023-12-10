@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 11.0.3, 2023-12-10T22:46:37. -->
+<!-- Written by QtCreator 11.0.3, 2023-12-10T22:50:16. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -244,7 +244,7 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseTerminal">false</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/CulinaryBook.app/Contents/MacOS</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/build-MacOS/CulinaryBook.app/Contents/MacOS</value>
    </valuemap>
    <value type="qlonglong" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
