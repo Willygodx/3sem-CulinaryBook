@@ -13,7 +13,7 @@ class RecipeManager
 
 private:
     QSqlTableModel *model;
-    bool updateRecipeInfo(int recipeId, const QString& name, const QString& description, const QString& ingredients, const QString& instruction, int prepTime, int servings, const QString& category, const QString& kitchen);
+    bool updateRecipeInfo(int recipeId, const Recipe& recipe);
 
 public:
     RecipeManager();
@@ -25,7 +25,7 @@ public:
     Recipe getRecipeById(int recipeId);
     int getRecipeIdFromIndex(const QModelIndex &index, QSqlQueryModel *model);
     void addRecipeToDatabase(const Recipe& recipe, const QString& photoPath);
-    bool updateRecipe(int recipeId, const QString& name, const QString& description, const QString& ingredients, const QString& instruction, int prepTime, int servings, const QString& category, const QString& kitchen);
+    bool updateRecipe(int recipeId, const Recipe& recipe);
 };
 
 #endif // RECIPEMANAGER_H

@@ -1,5 +1,10 @@
 #include "Headers/editrecipewindow.h"
 
+// Конструктор для вызова окна редактирования рецепта
+// Данный класс унаследован от класса RecipeWindowBase, следовательно
+// в конструкторе автоматически вызывается загрузка интерфейса.
+// Также выгружаем данные рецепта, который редактируем, во все поля,
+// чтобы пользователь мог отредактировать уже существующие данные
 EditRecipeWindow::EditRecipeWindow(int recipeId, QWidget* parent)
     : RecipeWindowBase(parent), recipeId(recipeId)
 {
@@ -8,6 +13,7 @@ EditRecipeWindow::EditRecipeWindow(int recipeId, QWidget* parent)
     EditRecipeWindow::loadRecipeData();
 }
 
+// Переопределенная виртуальная функция для сохранения рецепта в базу данных
 void EditRecipeWindow::saveRecipe()
 {
     QSqlDatabase db = QSqlDatabase::database();
@@ -25,6 +31,16 @@ void EditRecipeWindow::saveRecipe()
     QString kitchen = kitchenComboBox->currentText();
     QByteArray newPhotoData;
     QByteArray oldPhotoData;
+
+    Recipe recipe;
+    recipe.setName(name);
+    recipe.setDescription(description);
+    recipe.setIngredients(ingredients);
+    recipe.setInstruction(instruction);
+    recipe.setPrepTime(prepTime);
+    recipe.setServings(servings);
+    recipe.setCategory(category);
+    recipe.setKitchen(kitchen);
 
     if (name.isEmpty() || prepTime == 0 || servings == 0) {
         QMessageBox::warning(this, "Ошибка", "Заполните все обязательные поля!");
@@ -61,12 +77,15 @@ void EditRecipeWindow::saveRecipe()
         db.rollback();
     }
 
-    if (recipeManager.updateRecipe(recipeId, name, description, ingredients, instruction, prepTime, servings, category, kitchen)) {
+    if (recipeManager.updateRecipe(recipeId, recipe)) {
         accept();
     }
 
 }
 
+// Функция для выгрузки данных рецепта, который редактируем, во все поля,
+// чтобы пользователь мог отредактировать уже существующие данные
+// Используется в конструкторе
 void EditRecipeWindow::loadRecipeData()
 {
     QSqlDatabase db = QSqlDatabase::database();

@@ -1,5 +1,6 @@
 #include "Headers/comboboxloader.h"
 
+// Функция для выгрузки данных из .txt файла в виджет ComboBox
 void ComboBoxLoader::loadComboBoxItems(QComboBox* comboBox, const QString& filePath) {
     QFile file(filePath);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -14,6 +15,7 @@ void ComboBoxLoader::loadComboBoxItems(QComboBox* comboBox, const QString& fileP
     }
 }
 
+// Функция для сохранения данных в .txt файл из виджета ComboBox
 void ComboBoxLoader::saveComboBoxItems(QComboBox* comboBox, const QString& filePath) {
     QFile file(filePath);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {

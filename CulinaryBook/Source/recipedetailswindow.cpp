@@ -1,6 +1,7 @@
 #include "Headers/recipedetailswindow.h"
 #include "ui_recipedetailswindow.h"
 
+// Конструктор класса без лишних параметров.
 RecipeDetailsWindow::RecipeDetailsWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::RecipeDetailsWindow)
@@ -8,11 +9,15 @@ RecipeDetailsWindow::RecipeDetailsWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
+// Деструктор класса
 RecipeDetailsWindow::~RecipeDetailsWindow()
 {
     delete ui;
 }
 
+// Конструктор класса с доп. параметром в виде рецепта.
+// В конструкторе сразу находится реализация добавления элементов библиотеки QT,
+// чтобы при открытии окна, все отрисовывалось. Окно открывается при вызове конструктора.
 RecipeDetailsWindow::RecipeDetailsWindow(const Recipe &recipe, QWidget *parent)
     : QDialog(parent)
 {

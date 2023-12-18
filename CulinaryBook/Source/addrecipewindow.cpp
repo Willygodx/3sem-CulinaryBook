@@ -1,5 +1,8 @@
 #include "Headers/addrecipewindow.h"
 
+// Конструктор для вызова окна добавления рецепта
+// Данный класс унаследован от класса RecipeWindowBase, следовательно
+// в конструкторе автоматически вызывается загрузка интерфейса.
 AddRecipeWindow::AddRecipeWindow(QWidget *parent)
     : RecipeWindowBase(parent)
 {
@@ -7,6 +10,7 @@ AddRecipeWindow::AddRecipeWindow(QWidget *parent)
 
 }
 
+// Переопределенная виртуальная функция для сохранения рецепта в базу данных
 void AddRecipeWindow::saveRecipe()
 {
     RecipeManager recipeManager;

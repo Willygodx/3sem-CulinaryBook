@@ -1,6 +1,12 @@
 #include "Headers/mainwindow.h"
 #include "ui_mainwindow.h"
 
+// Конструктор для главного окна приложения. Здесь находится установка базы данных
+// и настройка моделей таблиц базы данных для отображения всех рецептов и
+// для отображения найденных рецептов по поиску. Также выгрузка данных в виджеты ComboBox
+// для категорий блюд и кухонь
+// Элементы библиотеки QT настроены с помощью QT Designer. Настройки хранятся в ui файлах в билде
+// ДЛЯ СБОРКИ ПРОЕКТА НА ДРУГОМ УСТРОЙСТВЕ НЕОБХОДИМО ПОМЕНЯТЬ ПУТЬ К БАЗЕ ДАННЫХ
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -47,17 +53,23 @@ MainWindow::MainWindow(QWidget *parent)
     comboBoxLoader->loadComboBoxItems(ui->comboBox_2, kitchenPath);
 }
 
+// Деструктор. Закрывает базу данных и удаляет интерфейс
 MainWindow::~MainWindow()
 {
     dbManager->closeDatabase();
     delete ui;
 }
 
+// Реализация триггера в меню для выхода из приложения
 void MainWindow::on_action_triggered()
 {
     QApplication::quit();
 }
 
+// Реализация кнопки для удаления рецепта
+// Здесь мы очищаем индексы после удаления рецепта, чтобы не было путаницы в индексах
+// при удалении рецепта из списка найденных рецептов.
+// Для удаления необходимо предварительно выбрать рецепт одиночным нажатием на него в таблице
 void MainWindow::on_buttonDelete_clicked()
 {
     QModelIndex index = ui->tableView->currentIndex();
@@ -87,6 +99,8 @@ void MainWindow::on_buttonDelete_clicked()
     ui->tableView->selectionModel()->clear();
 }
 
+// Реализация кнопки поиска. Принимаем текст из виджета и выполняем
+// SQL-запрос для фильтрации таблицы
 void MainWindow::on_buttonFind_clicked()
 {
     QString searchText = ui->searchLineEdit->text().trimmed();
@@ -129,6 +143,7 @@ void MainWindow::on_buttonFind_clicked()
     }
 }
 
+// Реализация двойного нажатия на рецепт в таблице всех рецептов. Открывается окно с деталями рецепта
 void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
 {
     int recipeId = model->data(model->index(index.row(), 0)).toInt();
@@ -138,6 +153,7 @@ void MainWindow::on_tableView_doubleClicked(const QModelIndex &index)
         detailsWindow->exec();
 }
 
+// Реализация двойного нажатия на рецепт в таблице найденных рецептов. Открывается окно с деталями рецепта
 void MainWindow::on_tableView1_doubleClicked(const QModelIndex &index)
 {
     int recipeId = modelForSearch->data(model->index(index.row(), 0)).toInt();
@@ -147,6 +163,9 @@ void MainWindow::on_tableView1_doubleClicked(const QModelIndex &index)
     detailsWindow->exec();
 }
 
+// Реализация кнопки редактирования рецепта. Открывается окно для редактирования
+// существующего рецепта.
+// Для редактирования необходимо предварительно выбрать рецепт одиночным нажатием на него в таблице
 void MainWindow::on_buttonEdit_clicked()
 {
     RecipeManager recipeManager;
@@ -167,6 +186,7 @@ void MainWindow::on_buttonEdit_clicked()
     ui->tableView->selectionModel()->clear();
 }
 
+// Реализация кнопки добавления нового рецепта. Открывается окно для добавления
 void MainWindow::on_buttonAdd_clicked()
 {
     AddRecipeWindow *addingWindow = new AddRecipeWindow(this);
@@ -175,16 +195,19 @@ void MainWindow::on_buttonAdd_clicked()
     modelForSearch->select();
 }
 
+// Очищает указатель на выбор рецепта в таблице найденных рецептов
 void MainWindow::on_tableView_clicked()
 {
     ui->tableView1->selectionModel()->clear();
 }
 
+// Очищает указатель на выбор рецепта в таблице всех рецептов
 void MainWindow::on_tableView1_clicked()
 {
     ui->tableView->selectionModel()->clear();
 }
 
+// Реализация обновления таблицы рецептов при смене категории
 void MainWindow::on_comboBox_currentIndexChanged()
 {
     QString category = ui->comboBox->currentText();
@@ -192,7 +215,7 @@ void MainWindow::on_comboBox_currentIndexChanged()
     updateRecipeView(category, kitchen);
 }
 
-
+// Реализация обновления таблицы рецептов при смене кухни
 void MainWindow::on_comboBox_2_currentIndexChanged()
 {
     QString kitchen = ui->comboBox_2->currentText();
@@ -200,6 +223,8 @@ void MainWindow::on_comboBox_2_currentIndexChanged()
     updateRecipeView(category, kitchen);
 }
 
+// Функция для обновления таблицы рецептов при смене категории либо кухни.
+// Используется выше в коде
 void MainWindow::updateRecipeView(const QString& category, const QString& kitchen)
 {
     QString queryString = "SELECT * FROM RecipesInfo WHERE ";
@@ -236,7 +261,7 @@ void MainWindow::updateRecipeView(const QString& category, const QString& kitche
     }
 }
 
-
+// Реализация триггера в меню для открытия диалогового окна при добавлении новой категории
 void MainWindow::on_actionAddCategory_triggered()
 {
     bool ok;
@@ -248,6 +273,7 @@ void MainWindow::on_actionAddCategory_triggered()
     }
 }
 
+// Реализация триггера в меню для открытия диалогового окна при удалении существующей категории
 void MainWindow::on_actionDeleteCategory_triggered()
 {
     int currentIndex = ui->comboBox->currentIndex();
@@ -270,6 +296,7 @@ void MainWindow::on_actionDeleteCategory_triggered()
     }
 }
 
+// Реализация триггера в меню для открытия диалогового окна при добавлении новой кухни
 void MainWindow::on_actionAddKitchen_triggered()
 {
     bool ok;
@@ -281,7 +308,7 @@ void MainWindow::on_actionAddKitchen_triggered()
     }
 }
 
-
+// Реализация триггера в меню для открытия диалогового окна при удалении существующей кухни
 void MainWindow::on_actionDeleteKitchen_triggered()
 {
     int currentIndex = ui->comboBox_2->currentIndex();

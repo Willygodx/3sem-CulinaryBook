@@ -1,13 +1,18 @@
 #include "Headers/recipemanager.h"
 
+// Конструктор класса
 RecipeManager::RecipeManager() {
 
 }
 
+// Деструктор
 RecipeManager::RecipeManager(QSqlTableModel *model) : model(model) {
 
 }
 
+// Функция для удаления рецепта из базы данных по уникальному номеру
+// Здесь используется SQL-запрос "DELETE FROM" для удаления определенного
+// рецепта из базы данных
 bool RecipeManager::deleteRecipeById(int recipeId) {
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
@@ -34,6 +39,7 @@ bool RecipeManager::deleteRecipeById(int recipeId) {
     return false;
 }
 
+// Функция для получения номера строки рецепта в таблице всех рецептов
 int RecipeManager::getRecipeRowById(int recipeId) {
     for (int row = 0; row < model->rowCount(); ++row) {
         QModelIndex index = model->index(row, 0);
@@ -44,6 +50,9 @@ int RecipeManager::getRecipeRowById(int recipeId) {
     return -1;
 }
 
+// Функция для получения рецепта из базы данных по уникальному номеру. Здесь
+// используется SQL-запрос "SELECT * FROM" по всем полям для выбора рецепта
+// из базы данных
 Recipe RecipeManager::getRecipeById(int recipeId) {
 
     QSqlQuery query;
@@ -68,6 +77,7 @@ Recipe RecipeManager::getRecipeById(int recipeId) {
     }
 }
 
+// Функция получения уникального номера рецепта по индексу в модели таблицы базы данных
 int RecipeManager::getRecipeIdFromIndex(const QModelIndex &index, QSqlQueryModel *model) {
     if (index.isValid()) {
         return model->data(model->index(index.row(), 0)).toInt();
@@ -76,6 +86,8 @@ int RecipeManager::getRecipeIdFromIndex(const QModelIndex &index, QSqlQueryModel
     }
 }
 
+// Функция добавления рецепта в базу данных. Здесь используется SQL-запрос "INSERT INTO"
+// по всем полям для занесения рецепта в базу данных
 void RecipeManager::addRecipeToDatabase(const Recipe& recipe, const QString& photoPath) {
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
@@ -105,7 +117,9 @@ void RecipeManager::addRecipeToDatabase(const Recipe& recipe, const QString& pho
     db.commit();
 }
 
-bool RecipeManager::updateRecipeInfo(int recipeId, const QString& name, const QString& description, const QString& ingredients, const QString& instruction, int prepTime, int servings, const QString& category, const QString& kitchen) {
+// Функция для обновления данных рецепта в базе данных. Здесь используется
+// SQL-запрос "UPDATE" для реализации обновления данных
+bool RecipeManager::updateRecipeInfo(int recipeId, const Recipe& recipe) {
     QSqlDatabase db = QSqlDatabase::database();
     QSqlQuery query(db);
 
@@ -113,15 +127,15 @@ bool RecipeManager::updateRecipeInfo(int recipeId, const QString& name, const QS
                   "instruction = :instruction, prepTime = :prepTime, servings = :servings, category = :category, kitchen = :kitchen "
                   "WHERE recipeId = :recipeId");
 
-    query.bindValue(":name", name);
-    query.bindValue(":description", description);
-    query.bindValue(":ingredients", ingredients);
-    query.bindValue(":instruction", instruction);
-    query.bindValue(":prepTime", prepTime);
-    query.bindValue(":servings", servings);
+    query.bindValue(":name", recipe.getName());
+    query.bindValue(":description", recipe.getDescription());
+    query.bindValue(":ingredients", recipe.getIngredients());
+    query.bindValue(":instruction", recipe.getInstruction());
+    query.bindValue(":prepTime", recipe.getPrepTime());
+    query.bindValue(":servings", recipe.getServings());
     query.bindValue(":recipeId", recipeId);
-    query.bindValue(":category", category);
-    query.bindValue(":kitchen", kitchen);
+    query.bindValue(":category", recipe.getCategory());
+    query.bindValue(":kitchen", recipe.getKitchen());
 
     if (!query.exec()) {
         qDebug() << "Ошибка запроса:" << query.lastError().text();
@@ -132,8 +146,8 @@ bool RecipeManager::updateRecipeInfo(int recipeId, const QString& name, const QS
     return true;
 }
 
-bool RecipeManager::updateRecipe(int recipeId, const QString& name, const QString& description, const QString& ingredients, const QString& instruction, int prepTime, int servings, const QString& category, const QString& kitchen) {
-    if (updateRecipeInfo(recipeId, name, description, ingredients, instruction, prepTime, servings, category, kitchen)) {
+bool RecipeManager::updateRecipe(int recipeId, const Recipe& recipe) {
+    if (updateRecipeInfo(recipeId, recipe)) {
         return true;
     }
 

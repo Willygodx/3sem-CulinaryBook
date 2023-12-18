@@ -1,16 +1,21 @@
 #include "Headers/recipewindowbase.h"
 
+// Конструктор класса
 RecipeWindowBase::RecipeWindowBase(QWidget *parent)
     : QDialog(parent)
 {
     setupUI();
 }
 
+// Деструктор
 RecipeWindowBase::~RecipeWindowBase()
 {
 
 }
 
+// В данной функции мы выполняем установку элементов библиотеки
+// QT для создания графического интерфейса окна создания/редакт
+// ирования рецепта
 void RecipeWindowBase::setupUI()
 {
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -93,6 +98,7 @@ void RecipeWindowBase::setupUI()
     mainLayout->addWidget(exitButton);
 }
 
+// Функция для реализации слота выбора фотографии из системного каталога
 void RecipeWindowBase::browsePhoto()
 {
     selectedPhotoPath = QFileDialog::getOpenFileName(this, "Выберите фото", "", "Images (*.png *.jpg)");
@@ -100,7 +106,7 @@ void RecipeWindowBase::browsePhoto()
         selectedPhotoLabel->setText("Фото выбрано: " + selectedPhotoPath);
     }
 }
-
+// Функция для выгрузки данных из .txt файлов для виджета ComboBox
 void RecipeWindowBase::loadComboBoxItems(QComboBox *comboBox, const QString &filePath)
 {
     ComboBoxLoader comboBoxLoader;

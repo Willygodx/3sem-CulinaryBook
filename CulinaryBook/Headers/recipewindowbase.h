@@ -21,6 +21,7 @@ public:
     ~RecipeWindowBase();
 
 private:
+    // ДЛЯ СБОРКИ ПРОЕКТА НА ДРУГОМ УСТРОЙСТВЕ НЕОБХОДИМО ПОМЕНЯТЬ ПУТИ
     const QString categoryPath = "/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/comboBoxCategoryInfo.txt";
     const QString kitchenPath = "/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/comboBoxKitchenInfo.txt";
 

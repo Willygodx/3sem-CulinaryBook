@@ -56,17 +56,14 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QSqlDatabase db;
     QSqlTableModel *model;
     QSqlTableModel *modelForSearch;
-    QSqlTableModel *modelForDelete;
     int currentRow;
     DatabaseManager *dbManager;
     ComboBoxLoader *comboBoxLoader;
+
+    // ДЛЯ СБОРКИ ПРОЕКТА НА ДРУГОМ УСТРОЙСТВЕ НЕОБХОДИМО ПОМЕНЯТЬ ПУТИ
     const QString categoryPath = "/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/comboBoxCategoryInfo.txt";
     const QString kitchenPath = "/Users/willygodx/Qt/qt projets/3sem-CulinaryBook-C++/DataBase/comboBoxKitchenInfo.txt";
-
-protected:
-    bool isRecipeEdited;
 };
 #endif // MAINWINDOW_H
